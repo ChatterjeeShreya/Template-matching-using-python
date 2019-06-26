@@ -61,8 +61,12 @@ def read_image(img_path, show=False):
     if show:
         show_image(img)
 
-    img = [list(row) for row in img]
+    blurimg = cv2.GaussianBlur(img, (7, 7), cv2.BORDER_DEFAULT)
+    blurimg = cv2.GaussianBlur(blurimg, (7, 7), cv2.BORDER_DEFAULT)
+
+    img = [list(row) for row in blurimg]
     return img
+
 
 def show_image(img, delay=1000):
     """Shows an image.

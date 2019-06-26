@@ -67,14 +67,19 @@ def detect(img, template, template_name):
     # TODO: implement this function.
 
     threshold = 0.95
+    print("Template path: ", template_name)
 
     if template_name == "./data/a.jpg":
+        print("template a")
         threshold = 0.90
     elif template_name == "./data/b.jpg":
-        threshold == 0.98
+        print("template b")
+        threshold = 0.977
     elif template_name == "./data/c.jpg":
+        print("template c")
         threshold = 0.97
 
+    print("Threshold= ", threshold)
     norm_img = normalize(img)
     norm_template = normalize(template)
 
@@ -119,11 +124,17 @@ def detect(img, template, template_name):
     return coordinates
 
 
-def drawResult(img, coordinates, template):
+def drawResult(img, coordinates, template, template_path):
     img_arr = np.asarray(img)
     trlen = len(template) - 1
     tclen = len(template[0]) - 1
     myColor = 0
+    # if template_path == "./data/a.jpg":
+    #     myColor = "#FF0000"
+    # elif template_path == "./data/b.jpg":
+    #     myColor == "#FF0000"
+    # elif template_path == "./data/c.jpg":
+    #     myColor = "#FF0000"
     print("drawing results for " + str(len(coordinates)) + " detected characters")
     for i in range(len(coordinates)):
             #print(str(i) + " " + str(coordinates[i][0]) + " " + str(coordinates[i][1]) + " " + str(trlen) +" "+str(tclen))
@@ -165,7 +176,7 @@ def main():
     save_results(coordinates, template, template_name, args.rs_directory)
 
     # cv2.imwrite("./results/", drawResult(img, coordinates))
-    result = drawResult(img, coordinates, template)
+    result = drawResult(img, coordinates, template, args.template_path)
     cv2.namedWindow('image', cv2.WINDOW_AUTOSIZE)
     cv2.imshow('image', result)
     cv2.waitKey(100000000)
